@@ -1,4 +1,4 @@
-package com.gbz;
+package com.gbz.game;
 
 import org.junit.Test;
 import static org.hamcrest.CoreMatchers.allOf;
