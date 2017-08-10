@@ -1,5 +1,8 @@
 package com.gbz.tennismatch.sets.game.standard;
 
+import java.util.Optional;
+
+import com.gbz.tennismatch.players.Players;
 import com.gbz.tennismatch.sets.game.Game;
 
 public class StandardGame implements Game {
@@ -8,19 +11,112 @@ public class StandardGame implements Game {
 
 	private StandardGameScore player2Score;
 
+	private boolean gameOver;
+
+	private int idWinner;
+
+	public StandardGame() {
+		player1Score = StandardGameScore.SCORE_0;
+		player2Score = StandardGameScore.SCORE_0;
+		gameOver = false;
+	}
+
 	public String getCurrentScore() {
-		// TODO Auto-generated method stub
-		return null;
+		String result = "";
+		result = computeScoreForNormalCases();
+		result = computeScoreForDeuce(result);
+		result = computeScoreForAdvantage(result);
+		return result;
+	}
+
+	private String computeScoreForAdvantage(String result) {
+		if (player1Score == StandardGameScore.ADVANTAGE || player2Score == StandardGameScore.ADVANTAGE) {
+			// nothing is asked on giving the name of the player who has taken
+			// the lead.
+			result = "Advantage";
+		}
+		return result;
+	}
+
+	private String computeScoreForDeuce(String result) {
+		if (player1Score == StandardGameScore.SCORE_40 && player2Score == StandardGameScore.SCORE_40) {
+			result = "Deuce";
+		}
+		return result;
 	}
 
 	public void player1Score() {
-		// TODO Auto-generated method stub
+		if (!isGameOver()) {
+			checkIfGameIsOver(player1Score, player2Score, Players.PLAYER_1_POS);
+			if (checkIfPlayerIsInAdvantage(player2Score)) {
+				player2Score = StandardGameScore.SCORE_40;
+			} else {
+				player1Score = player1Score.getNextPoint().get();
+			}
 
+		}
 	}
 
 	public void player2Score() {
-		// TODO Auto-generated method stub
+		if (!isGameOver()) {
+			checkIfGameIsOver(player2Score, player1Score, Players.PLAYER_2_POS);
+			if (checkIfPlayerIsInAdvantage(player1Score)) {
+				player1Score = StandardGameScore.SCORE_40;
+			} else {
+				player2Score = player2Score.getNextPoint().get();
+			}
+		}
+	}
 
+	private boolean checkIfPlayerIsInAdvantage(StandardGameScore playerScore) {
+		if (playerScore == StandardGameScore.ADVANTAGE) {
+			return true;
+		}
+		return false;
+	}
+
+	public boolean isGameOver() {
+		return gameOver;
+	}
+
+	public Optional<Integer> getWinner() {
+		if (!isGameOver()) {
+			return Optional.empty();
+		}
+		return Optional.of(idWinner);
+	}
+
+	private String computeScoreForNormalCases() {
+		String result;
+		result = player1Score.getName() + " - " + player2Score.getName();
+		return result;
+	}
+
+	private void checkIfGameIsOver(StandardGameScore score, StandardGameScore oppositePlayerScore, int idPlayer) {
+
+		if (!checkIfGameIsInDeuceState() && !checkIfPlayerIsInAdvantage(oppositePlayerScore)) {
+			if (score == StandardGameScore.SCORE_40) {
+				setWinner(idPlayer);
+			}
+		}
+
+		if (score == StandardGameScore.ADVANTAGE) {
+			setWinner(idPlayer);
+		}
+
+	}
+
+	private void setWinner(int idPlayer) {
+		this.gameOver = true;
+		this.idWinner = idPlayer;
+	}
+
+	private boolean checkIfGameIsInDeuceState() {
+		boolean result = false;
+		if (player1Score == StandardGameScore.SCORE_40 && player2Score == StandardGameScore.SCORE_40) {
+			result = true;
+		}
+		return result;
 	}
 
 }

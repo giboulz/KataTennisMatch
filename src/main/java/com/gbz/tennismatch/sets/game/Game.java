@@ -1,5 +1,7 @@
 package com.gbz.tennismatch.sets.game;
 
+import java.util.Optional;
+
 public interface Game {
 
 	String getCurrentScore();
@@ -8,4 +10,7 @@ public interface Game {
 
 	void player2Score();
 
+	boolean isGameOver(); 
+	
+	Optional<Integer> getWinner(); 
 }
