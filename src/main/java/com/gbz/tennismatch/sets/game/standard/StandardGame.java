@@ -4,21 +4,18 @@ import java.util.Optional;
 
 import com.gbz.tennismatch.players.Players;
 import com.gbz.tennismatch.sets.game.Game;
+import com.gbz.tennismatch.sets.game.Game;
 
-public class StandardGame implements Game {
+public class StandardGame extends Game {
 
 	private StandardGameScore player1Score;
 
 	private StandardGameScore player2Score;
 
-	private boolean gameOver;
-
-	private int idWinner;
-
 	public StandardGame() {
+		super();
 		player1Score = StandardGameScore.SCORE_0;
 		player2Score = StandardGameScore.SCORE_0;
-		gameOver = false;
 	}
 
 	public String getCurrentScore() {
@@ -75,16 +72,7 @@ public class StandardGame implements Game {
 		return false;
 	}
 
-	public boolean isGameOver() {
-		return gameOver;
-	}
 
-	public Optional<Integer> getWinner() {
-		if (!isGameOver()) {
-			return Optional.empty();
-		}
-		return Optional.of(idWinner);
-	}
 
 	private String computeScoreForNormalCases() {
 		String result;
@@ -104,11 +92,6 @@ public class StandardGame implements Game {
 			setWinner(idPlayer);
 		}
 
-	}
-
-	private void setWinner(int idPlayer) {
-		this.gameOver = true;
-		this.idWinner = idPlayer;
 	}
 
 	private boolean checkIfGameIsInDeuceState() {

@@ -2,15 +2,36 @@ package com.gbz.tennismatch.sets.game;
 
 import java.util.Optional;
 
-public interface Game {
+public abstract class Game {
 
-	String getCurrentScore();
+	private boolean gameOver;
 
-	void player1Score();
+	private int idWinner;
 
-	void player2Score();
+	public abstract String getCurrentScore();
 
-	boolean isGameOver(); 
-	
-	Optional<Integer> getWinner(); 
+	public abstract void player1Score();
+
+	public abstract void player2Score();
+
+	public Game() {
+		gameOver = false;
+	}
+
+	public boolean isGameOver() {
+		return gameOver;
+	}
+
+	public Optional<Integer> getWinner() {
+		if (!isGameOver()) {
+			return Optional.empty();
+		}
+		return Optional.of(idWinner);
+	}
+
+	protected void setWinner(int idPlayer) {
+		this.gameOver = true;
+		this.idWinner = idPlayer;
+	}
+
 }
