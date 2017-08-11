@@ -6,12 +6,13 @@ import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
+import com.gbz.tennismatch.TennisPlayable;
 import com.gbz.tennismatch.players.Players;
 import com.gbz.tennismatch.sets.game.Game;
 import com.gbz.tennismatch.sets.game.standard.StandardGame;
 import com.gbz.tennismatch.sets.game.tiebreak.TieBreakGame;
 
-public class Set {
+public class Set implements TennisPlayable {
 
 	private List<Game> games;
 

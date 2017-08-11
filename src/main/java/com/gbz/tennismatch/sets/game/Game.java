@@ -2,7 +2,9 @@ package com.gbz.tennismatch.sets.game;
 
 import java.util.Optional;
 
-public abstract class Game {
+import com.gbz.tennismatch.TennisPlayable;
+
+public abstract class Game implements TennisPlayable {
 
 	private boolean gameOver;
 
