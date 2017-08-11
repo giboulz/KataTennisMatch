@@ -1,6 +1,5 @@
 package com.gbz.game;
 
-import org.junit.Test;
 import static org.hamcrest.CoreMatchers.allOf;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -11,10 +10,9 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
 
+import org.junit.Test;
 import java.util.Optional;
-
 import org.junit.Before;
-
 import com.gbz.tennismatch.players.Players;
 import com.gbz.tennismatch.sets.game.Game;
 import com.gbz.tennismatch.sets.game.Game;
@@ -37,10 +35,10 @@ public class GameStandardTest {
 	@Test
 	public void when_game_is_not_finished_there_is_no_winner() {
 		Optional<Integer> empty = Optional.empty();
-		Optional<Integer> result = sut.getWinner();
+		Optional<Integer> winner = sut.getWinner();
 
 		assertThat(sut.isGameOver(), is(false));
-		assertThat(result, is(empty));
+		assertThat(winner, is(empty));
 	}
 
 	@Test
