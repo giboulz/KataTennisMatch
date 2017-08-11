@@ -34,4 +34,6 @@ public abstract class Game {
 		this.idWinner = idPlayer;
 	}
 
+	public abstract String getGameType();
+
 }

@@ -72,8 +72,6 @@ public class StandardGame extends Game {
 		return false;
 	}
 
-
-
 	private String computeScoreForNormalCases() {
 		String result;
 		result = player1Score.getName() + " - " + player2Score.getName();
@@ -100,6 +98,12 @@ public class StandardGame extends Game {
 			result = true;
 		}
 		return result;
+	}
+
+	@Override
+	public String getGameType() {
+		// TODO Auto-generated method stub
+		return "Standard Game";
 	}
 
 }

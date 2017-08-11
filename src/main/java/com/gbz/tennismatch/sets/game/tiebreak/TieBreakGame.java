@@ -46,4 +46,10 @@ public class TieBreakGame extends Game {
 		}
 	}
 
+	@Override
+	public String getGameType() {
+		// TODO Auto-generated method stub
+		return "Tie Break";
+	}
+
 }
